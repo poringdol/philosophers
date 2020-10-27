@@ -60,6 +60,4 @@ long	get_time(t_timeval last_eat)
 	gettimeofday(&current_time, NULL);
 	timersub(&current_time, &last_eat, &sub);
 	return (sub.tv_sec * 1000 + sub.tv_usec / 1000);
-	// return ((current_time.tv_sec * 1000000 + current_time.tv_usec) -
-	// 		last_eat.tv_sec * 1000000 + last_eat.tv_usec);
 }

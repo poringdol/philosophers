@@ -27,14 +27,14 @@ int 	check_input(int argc, char **argv)
 	return (0);
 }
 
-int		check_full_eat(t_philo **philo, int n, int must_eat)
-{
-	if (!must_eat)
-		return (0);
-	while (n--)
-	{
-		if (philo[n]->eat_count < must_eat)
-			return (0);
-	}
-	return (1);
-}
+// int		check_full_eat(t_philo **philo, int n, int must_eat)
+// {
+// 	if (!must_eat)
+// 		return (0);
+// 	while (n--)
+// 	{
+// 		if (philo[n]->eat_count < must_eat)
+// 			return (0);
+// 	}
+// 	return (1);
+// }

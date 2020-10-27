@@ -50,7 +50,7 @@ typedef struct	s_philo
 }				t_philo;
 
 int				check_input(int argc, char **argv);
-int				check_full_eat(t_philo **philo, int n, int must_eat);
+// int				check_full_eat(t_philo **philo, int n, int must_eat);
 
 int				print_error(char *error_message);
 int				print_action(int i, char *action);
