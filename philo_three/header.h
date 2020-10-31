@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   header.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pdemocri <sashe@bk.ru>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/10/31 17:08:32 by pdemocri          #+#    #+#             */
+/*   Updated: 2020/10/31 17:16:51 by pdemocri         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef HEADER_H
 # define HEADER_H
 
@@ -6,9 +18,9 @@
 # include <string.h>
 # include <sys/time.h>
 # include <unistd.h>
-# include <fcntl.h>           /* For O_* constants */
-# include <sys/stat.h>        /* For mode constants */
-# include <sys/wait.h>  
+# include <fcntl.h>
+# include <sys/stat.h>
+# include <sys/wait.h>
 # include <semaphore.h>
 # include <signal.h>
 # include <sys/types.h>
@@ -60,7 +72,7 @@ int				ft_isdigit(int ch);
 int				ft_strlen(const char *str);
 long			ft_atoi(const char *str);
 void			ft_itoa(char *buf, long n);
-char   			 *ft_strcat(char *dst, const char *src);
+char			*ft_strcat(char *dst, const char *src);
 
 int				print_error(char *error_message);
 int				print_action(int i, char *action);

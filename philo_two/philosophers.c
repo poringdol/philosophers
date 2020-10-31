@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philosophers.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pdemocri <sashe@bk.ru>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/10/31 17:09:13 by pdemocri          #+#    #+#             */
+/*   Updated: 2020/10/31 17:09:14 by pdemocri         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "header.h"
 
 void	eating(int i)
@@ -10,7 +22,6 @@ void	eating(int i)
 	print_action(i, PRINT_TAKE_FORK);
 	gettimeofday(&current, NULL);
 	g_philo[i]->last_eat = current;
-	
 	print_action(i, PRINT_EAT);
 	usleep(g_params.time_to_eat);
 	g_philo[i]->eat_count++;
@@ -46,7 +57,7 @@ int		philosophers(t_param params)
 	while (i < params.num_of_philo)
 	{
 		pthread_create(g_thread[i], NULL, philo_action, &(g_philo[i]->num));
-		i ++;
+		i++;
 		usleep(200);
 	}
 	pthread_join(check_d, NULL);

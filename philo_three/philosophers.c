@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philosophers.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pdemocri <sashe@bk.ru>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/10/31 17:08:44 by pdemocri          #+#    #+#             */
+/*   Updated: 2020/10/31 17:08:47 by pdemocri         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "header.h"
 
 void	eating(int i)
@@ -9,10 +21,8 @@ void	eating(int i)
 	sem_wait(g_sem_forks);
 	print_action(i, PRINT_TAKE_FORK);
 	gettimeofday(&current, NULL);
-	// sem_post(g_sem_death);
 	g_philo[i]->last_eat = current;
 	print_action(i, PRINT_EAT);
-	// sem_wait(g_sem_death);
 	usleep(g_params.time_to_eat);
 	sem_post(g_sem_forks);
 	sem_post(g_sem_forks);
@@ -25,10 +35,8 @@ int		philo_action(void *n)
 {
 	const int	i = *(int *)n;
 	pthread_t	check_d;
-	// pthread_t		check_f_e;
 
 	pthread_create(&check_d, NULL, check_death, n);
-	// pthread_create(&check_d, NULL, check_full_eat, NULL);
 	while (!(g_philo[i]->death_status))
 	{
 		eating(i);
@@ -37,7 +45,6 @@ int		philo_action(void *n)
 		print_action(i, PRINT_THINK);
 	}
 	pthread_join(check_d, NULL);
-	// pthread_join(check_f_e, NULL);
 	exit(0);
 }
 
@@ -53,8 +60,6 @@ int		philosophers(t_param params)
 	pid_check = fork();
 	if (pid_check == 0)
 		check_full_eat(g_params.num_of_philo);
-	// else
-	// {
 	while (++i < params.num_of_philo)
 	{
 		pid_action = fork();
@@ -64,12 +69,10 @@ int		philosophers(t_param params)
 		else if (pid_action > 0)
 			usleep(500);
 		else
-			break;
+			break ;
 	}
-	// }
 	waitpid(-1, NULL, 0);
 	kill_all();
-	
 	exit(0);
 }
 

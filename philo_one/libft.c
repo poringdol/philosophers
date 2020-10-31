@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   libft.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pdemocri <sashe@bk.ru>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/10/31 17:08:15 by pdemocri          #+#    #+#             */
+/*   Updated: 2020/10/31 17:12:39 by pdemocri         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "header.h"
 
 int		ft_isdigit(int ch)
@@ -68,17 +80,17 @@ void	ft_itoa(char *buf, long n)
 	}
 }
 
-char    *ft_strcat(char *dst, const char *src)
+char	*ft_strcat(char *dst, const char *src)
 {
-        int i;
-        int j;
+	int i;
+	int j;
 
-        i = 0;
-        j = 0;
-        while (dst[i])
-                i++;
-        while (src[j])
-                dst[i++] = src[j++];
-        dst[i] = '\0';
-        return (dst);
+	i = 0;
+	j = 0;
+	while (dst[i])
+		i++;
+	while (src[j])
+		dst[i++] = src[j++];
+	dst[i] = '\0';
+	return (dst);
 }

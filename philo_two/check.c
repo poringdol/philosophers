@@ -1,13 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pdemocri <sashe@bk.ru>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/10/31 17:09:00 by pdemocri          #+#    #+#             */
+/*   Updated: 2020/10/31 17:14:20 by pdemocri         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "header.h"
 
-int 	check_input(int argc, char **argv)
+int		check_input(int argc, char **argv)
 {
 	int			i;
 	int			j;
 
 	if (argc < PARAM_NUM - 1 || argc > PARAM_NUM)
 	{
-		write (2, WRONG_PARAM_NUMB, ft_strlen(WRONG_PARAM_NUMB));
+		write(2, WRONG_PARAM_NUMB, ft_strlen(WRONG_PARAM_NUMB));
 		return (1);
 	}
 	i = 0;
@@ -18,7 +30,7 @@ int 	check_input(int argc, char **argv)
 		{
 			if (!ft_isdigit(argv[i][j]))
 			{
-				write (2, WRONG_PARAM, ft_strlen(WRONG_PARAM));
+				write(2, WRONG_PARAM, ft_strlen(WRONG_PARAM));
 				return (1);
 			}
 			j++;
@@ -26,18 +38,6 @@ int 	check_input(int argc, char **argv)
 	}
 	return (0);
 }
-
-// int		check_full_eat(t_philo **philo, int n, int must_eat)
-// {
-// 	if (!must_eat)
-// 		return (0);
-// 	while (n--)
-// 	{
-// 		if (philo[n]->eat_count < must_eat)
-// 			return (0);
-// 	}
-// 	return (1);
-// }
 
 void	*check_death(void *ptr)
 {
@@ -56,7 +56,8 @@ void	*check_death(void *ptr)
 				return (ptr);
 			}
 		}
-		if (g_params.must_eat && g_params.full_eat_count == g_params.num_of_philo)
+		if (g_params.must_eat &&
+			g_params.full_eat_count == g_params.num_of_philo)
 			return (ptr);
 		usleep(500);
 	}

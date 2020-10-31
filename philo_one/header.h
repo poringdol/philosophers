@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   header.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pdemocri <sashe@bk.ru>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/10/31 17:08:11 by pdemocri          #+#    #+#             */
+/*   Updated: 2020/10/31 17:11:38 by pdemocri         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef HEADER_H
 # define HEADER_H
 
@@ -12,9 +24,6 @@
 
 # define WRONG_PARAM "Invalid parameter. Only numeric parameters are possible\n"
 # define WRONG_PARAM_NUMB "There must be 4 or 5 parameters\n"
-// # define WRONG_THREAD_INIT "Threads initialization error\n"
-// # define WRONG_MUTEX_INIT "Mutex initialization error\n"
-// # define WRONG_PHILO_INIT "Philosophers initialization error\n"
 # define INIT_ERROR "Initialization error\n"
 
 # define PRINT_TAKE_FORK " has taken a fork\n"
@@ -59,13 +68,12 @@ int				ft_isdigit(int ch);
 int				ft_strlen(const char *str);
 long			ft_atoi(const char *str);
 void			ft_itoa(char *buf, long n);
-char   			 *ft_strcat(char *dst, const char *src);
+char			*ft_strcat(char *dst, const char *src);
 
 t_param			init_params(char **argv);
 int				init_all(int n);
 void			init_time(t_philo **philo, int n);
 long			get_time(t_timeval last_eat);
-
 
 int				join_thread(pthread_t **thread, int n);
 int				destroy_mutex(t_mutex **mutex, int n);

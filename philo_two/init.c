@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pdemocri <sashe@bk.ru>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/10/31 17:09:07 by pdemocri          #+#    #+#             */
+/*   Updated: 2020/10/31 17:09:08 by pdemocri         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "header.h"
 #include <errno.h>
 #include <stdio.h>
@@ -31,20 +43,20 @@ int			init_all(int n)
 	}
 	i = -1;
 	sem_unlink(SEMAPHOR);
-	if ((g_forks = sem_open(SEMAPHOR, O_CREAT, 0666, g_params.num_of_philo)) == SEM_FAILED)
-		return print_error(INIT_ERROR);
+	if ((g_forks = sem_open(SEMAPHOR, O_CREAT, 0666, g_params.num_of_philo))
+				== SEM_FAILED)
+		return (print_error(INIT_ERROR));
 	while (++i < n)
 	{
 		memset(g_philo[i], 0, sizeof(t_philo));
 		g_philo[i]->num = i;
-		// sem_post(g_forks);
 	}
 	return (0);
 }
 
-void	init_time(t_philo **philo, int n)
+void		init_time(t_philo **philo, int n)
 {
-	t_timeval		time;
+	t_timeval	time;
 
 	gettimeofday(&time, NULL);
 	while (n--)
@@ -52,10 +64,10 @@ void	init_time(t_philo **philo, int n)
 	g_params.start = time;
 }
 
-long	diff_time(t_timeval last_eat)
+long		diff_time(t_timeval last_eat)
 {
-	t_timeval		current_time;
-	t_timeval		sub;
+	t_timeval	current_time;
+	t_timeval	sub;
 
 	gettimeofday(&current_time, NULL);
 	timersub(&current_time, &last_eat, &sub);

@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pdemocri <sashe@bk.ru>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/10/31 17:08:13 by pdemocri          #+#    #+#             */
+/*   Updated: 2020/10/31 17:13:53 by pdemocri         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "header.h"
 
-t_param		init_params(char **argv)
+t_param	init_params(char **argv)
 {
 	t_param		params;
 
@@ -14,7 +26,7 @@ t_param		init_params(char **argv)
 	return (params);
 }
 
-int			init_all(int n)
+int		init_all(int n)
 {
 	int			i;
 
@@ -44,7 +56,7 @@ int			init_all(int n)
 
 void	init_time(t_philo **philo, int n)
 {
-	t_timeval		time;
+	t_timeval	time;
 
 	gettimeofday(&time, NULL);
 	while (n--)
@@ -54,8 +66,8 @@ void	init_time(t_philo **philo, int n)
 
 long	get_time(t_timeval last_eat)
 {
-	t_timeval		current_time;
-	t_timeval		sub;
+	t_timeval	current_time;
+	t_timeval	sub;
 
 	gettimeofday(&current_time, NULL);
 	timersub(&current_time, &last_eat, &sub);

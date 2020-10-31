@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pdemocri <sashe@bk.ru>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/10/31 17:08:34 by pdemocri          #+#    #+#             */
+/*   Updated: 2020/10/31 17:25:26 by pdemocri         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "header.h"
 #include <errno.h>
 #include <stdio.h>
@@ -28,29 +40,25 @@ int			init_all(int n)
 	{
 		if (!(g_philo[i] = (t_philo *)malloc(sizeof(t_philo))))
 			return (print_error(INIT_ERROR));
+		memset(g_philo[i], 0, sizeof(t_philo));
+		g_philo[i]->num = i;
 	}
 	i = -1;
 	sem_unlink(SEM_FORK);
-	if ((g_sem_forks = sem_open(SEM_FORK, O_CREAT, 0666, g_params.num_of_philo)) == SEM_FAILED)
-		return print_error(INIT_ERROR);
-	while (++i < n)
-	{
-		memset(g_philo[i], 0, sizeof(t_philo));
-		g_philo[i]->num = i;
-		// sem_post(g_sem_forks);
-	}
 	sem_unlink(SEM_DEATH);
-	if ((g_sem_death = sem_open(SEM_DEATH, O_CREAT, 0666, 1)) == SEM_FAILED)
-		return print_error(INIT_ERROR);
 	sem_unlink(SEM_FULL_EAT);
-	if ((g_sem_full_eat = sem_open(SEM_FULL_EAT, O_CREAT, 0666, 0)) == SEM_FAILED)
-		return print_error(INIT_ERROR);
+	if (((g_sem_forks = sem_open(SEM_FORK, O_CREAT, 0666, n))
+					== SEM_FAILED) ||
+		((g_sem_death = sem_open(SEM_DEATH, O_CREAT, 0666, 1)) == SEM_FAILED) ||
+		((g_sem_full_eat = sem_open(SEM_FULL_EAT, O_CREAT, 0666, 0))
+						== SEM_FAILED))
+		return (print_error(INIT_ERROR));
 	return (0);
 }
 
-void	init_time(t_philo **philo, int n)
+void		init_time(t_philo **philo, int n)
 {
-	t_timeval		time;
+	t_timeval	time;
 
 	gettimeofday(&time, NULL);
 	while (n--)
@@ -58,10 +66,10 @@ void	init_time(t_philo **philo, int n)
 	g_params.start = time;
 }
 
-long	diff_time(t_timeval last_eat)
+long		diff_time(t_timeval last_eat)
 {
-	t_timeval		current_time;
-	t_timeval		sub;
+	t_timeval	current_time;
+	t_timeval	sub;
 
 	gettimeofday(&current_time, NULL);
 	timersub(&current_time, &last_eat, &sub);
