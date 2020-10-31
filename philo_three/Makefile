@@ -9,7 +9,7 @@ CC = gcc
 FLAGS = -Wall -Werror -Wextra -pthread -g
 RM = rm -rf
 
-NAME = philo_two
+NAME = philo_three
 
 SRC = main.c \
 	  libft.c \

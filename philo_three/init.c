@@ -19,26 +19,32 @@ int			init_all(int n)
 {
 	int			i;
 
-	if (!(g_thread = (pthread_t **)malloc(sizeof(pthread_t *) * n)) ||
-		!(g_philo = (t_philo **)malloc(sizeof(t_philo *) * n)))
+	if (!(g_philo = (t_philo **)malloc(sizeof(t_philo *) * n)))
+		return (print_error(INIT_ERROR));
+	if (!(g_pid = (pid_t *)malloc(sizeof(pid_t) * n)))
 		return (print_error(INIT_ERROR));
 	i = -1;
 	while (++i < n)
 	{
-		if (!(g_thread[i] = (pthread_t *)malloc(sizeof(pthread_t))) ||
-			!(g_philo[i] = (t_philo *)malloc(sizeof(t_philo))))
+		if (!(g_philo[i] = (t_philo *)malloc(sizeof(t_philo))))
 			return (print_error(INIT_ERROR));
 	}
 	i = -1;
-	sem_unlink(SEMAPHOR);
-	if ((g_forks = sem_open(SEMAPHOR, O_CREAT, 0666, g_params.num_of_philo)) == SEM_FAILED)
+	sem_unlink(SEM_FORK);
+	if ((g_sem_forks = sem_open(SEM_FORK, O_CREAT, 0666, g_params.num_of_philo)) == SEM_FAILED)
 		return print_error(INIT_ERROR);
 	while (++i < n)
 	{
 		memset(g_philo[i], 0, sizeof(t_philo));
 		g_philo[i]->num = i;
-		// sem_post(g_forks);
+		// sem_post(g_sem_forks);
 	}
+	sem_unlink(SEM_DEATH);
+	if ((g_sem_death = sem_open(SEM_DEATH, O_CREAT, 0666, 1)) == SEM_FAILED)
+		return print_error(INIT_ERROR);
+	sem_unlink(SEM_FULL_EAT);
+	if ((g_sem_full_eat = sem_open(SEM_FULL_EAT, O_CREAT, 0666, 0)) == SEM_FAILED)
+		return print_error(INIT_ERROR);
 	return (0);
 }
 

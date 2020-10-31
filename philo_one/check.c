@@ -27,14 +27,27 @@ int 	check_input(int argc, char **argv)
 	return (0);
 }
 
-// int		check_full_eat(t_philo **philo, int n, int must_eat)
-// {
-// 	if (!must_eat)
-// 		return (0);
-// 	while (n--)
-// 	{
-// 		if (philo[n]->eat_count < must_eat)
-// 			return (0);
-// 	}
-// 	return (1);
-// }
+void	*check_death(void *ptr)
+{
+	int			i;
+	t_timeval	cuerrent_time;
+
+	while (1)
+	{
+		i = -1;
+		gettimeofday(&cuerrent_time, NULL);
+		while (++i < g_params.num_of_philo)
+		{
+			if (get_time(g_philo[i]->last_eat) > g_params.time_to_die)
+			{
+				print_action(i, PRINT_DIED);
+				return (ptr);
+			}
+		}
+		if (g_death || 
+			(g_params.must_eat && g_params.full_eat_count == g_params.num_of_philo))
+			return (ptr);
+		usleep(500);
+	}
+	return (ptr);
+}

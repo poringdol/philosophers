@@ -17,7 +17,6 @@ SRC = main.c \
 	  init.c \
 	  free.c  \
 	  print.c  \
-	  actions.c \
 	  philosophers.c
 
 OBJS = $(SRC:.c=.o)

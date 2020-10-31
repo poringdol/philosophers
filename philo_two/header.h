@@ -55,10 +55,6 @@ long			ft_atoi(const char *str);
 void			ft_itoa(char *buf, long n);
 char   			 *ft_strcat(char *dst, const char *src);
 
-void			eating(int i);
-void			sleeping(int i);
-void			thinking(int i);
-
 int				print_error(char *error_message);
 int				print_action(int i, char *action);
 
@@ -68,6 +64,7 @@ void			init_time(t_philo **philo, int n);
 void			free_all(void);
 
 int				philosophers(t_param params);
+void			eating(int i);
 
 t_param			g_params;
 pthread_t		**g_thread;
