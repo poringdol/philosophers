@@ -15,13 +15,13 @@ SRC = main.c \
 	  libft.c \
 	  check.c  \
 	  init.c \
-	  free.c  \
-	  print.c  \
+	  print.c \
 	  philosophers.c
 
 OBJS = $(SRC:.c=.o)
 OBJDIR = ./objects/
 OBJ = $(addprefix $(OBJDIR), $(OBJS))
+DEP = $(OBJ:.o=.d)
 
 all: $(NAME)
 
@@ -29,9 +29,11 @@ $(NAME): $(OBJ)
 	@$(CC) $(OBJ) -o $(NAME) $(FLAGS)
 	@echo "$(GREEN)  Executable $(PURPLE)philo_one $(GREEN)created  $(B&W)"
 
+-include $(DEP)
+
 $(OBJDIR)%.o: %.c
 	@mkdir -p $(OBJDIR)
-	@$(CC) -c $< -o $@ $(FLAGS)
+	@$(CC) -MMD -c $< -o $@ $(FLAGS)
 	@echo "$(GREEN)  Object file $(PURPLE)$@ $(GREEN)created  $(B&W)"
 
 

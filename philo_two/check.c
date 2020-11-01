@@ -6,7 +6,7 @@
 /*   By: pdemocri <sashe@bk.ru>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 17:09:00 by pdemocri          #+#    #+#             */
-/*   Updated: 2020/10/31 17:14:20 by pdemocri         ###   ########.fr       */
+/*   Updated: 2020/11/02 00:36:49 by pdemocri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	*check_death(void *ptr)
 			}
 		}
 		if (g_params.must_eat &&
-			g_params.full_eat_count == g_params.num_of_philo)
+				g_params.full_eat_count == g_params.num_of_philo)
 			return (ptr);
 		usleep(500);
 	}

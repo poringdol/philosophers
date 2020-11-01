@@ -6,7 +6,7 @@
 /*   By: pdemocri <sashe@bk.ru>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 17:08:17 by pdemocri          #+#    #+#             */
-/*   Updated: 2020/10/31 17:09:51 by pdemocri         ###   ########.fr       */
+/*   Updated: 2020/11/01 23:01:06 by pdemocri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,6 @@ int		main(int argc, char **argv)
 		return (1);
 	init_time(g_philo, g_params.num_of_philo);
 	philosophers(g_params);
-	destroy_mutex(g_mutex, g_params.num_of_philo);
+	free_all();
 	return (0);
 }

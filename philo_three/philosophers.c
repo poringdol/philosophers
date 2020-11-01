@@ -6,11 +6,21 @@
 /*   By: pdemocri <sashe@bk.ru>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 17:08:44 by pdemocri          #+#    #+#             */
-/*   Updated: 2020/10/31 17:08:47 by pdemocri         ###   ########.fr       */
+/*   Updated: 2020/11/02 00:53:12 by pdemocri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
+
+long	diff_time(t_timeval last_eat)
+{
+	t_timeval	current_time;
+	t_timeval	sub;
+
+	gettimeofday(&current_time, NULL);
+	timersub(&current_time, &last_eat, &sub);
+	return (sub.tv_sec * 1000 + sub.tv_usec / 1000);
+}
 
 void	eating(int i)
 {

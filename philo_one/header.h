@@ -6,7 +6,7 @@
 /*   By: pdemocri <sashe@bk.ru>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 17:08:11 by pdemocri          #+#    #+#             */
-/*   Updated: 2020/10/31 17:11:38 by pdemocri         ###   ########.fr       */
+/*   Updated: 2020/11/02 00:53:02 by pdemocri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct	s_philo
 	t_timeval	last_eat;
 	t_mutex		*fork1;
 	t_mutex		*fork2;
+	t_mutex		eat_mutex;
 	int			eat_count;
 	int			death_status;
 	int			num;
@@ -73,19 +74,14 @@ char			*ft_strcat(char *dst, const char *src);
 t_param			init_params(char **argv);
 int				init_all(int n);
 void			init_time(t_philo **philo, int n);
-long			get_time(t_timeval last_eat);
-
-int				join_thread(pthread_t **thread, int n);
-int				destroy_mutex(t_mutex **mutex, int n);
-int				detach_thread(pthread_t **thread, int n);
+int				free_all(void);
 
 int				philosophers(t_param params);
-int				eating(int i);
+void			eating(int i);
+long			get_time(t_timeval last_eat);
 
 t_param			g_params;
 pthread_t		**g_thread;
 t_mutex			**g_mutex;
 t_philo			**g_philo;
-int				g_death;
-
 #endif

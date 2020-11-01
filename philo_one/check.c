@@ -6,7 +6,7 @@
 /*   By: pdemocri <sashe@bk.ru>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 17:08:00 by pdemocri          #+#    #+#             */
-/*   Updated: 2020/10/31 17:12:07 by pdemocri         ###   ########.fr       */
+/*   Updated: 2020/11/02 00:34:14 by pdemocri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	*check_death(void *ptr)
 {
 	int			i;
 	t_timeval	cuerrent_time;
+	long		diff_time;
 
 	while (1)
 	{
@@ -50,15 +51,17 @@ void	*check_death(void *ptr)
 		gettimeofday(&cuerrent_time, NULL);
 		while (++i < g_params.num_of_philo)
 		{
-			if (get_time(g_philo[i]->last_eat) > g_params.time_to_die)
+			diff_time = get_time(g_philo[i]->last_eat);
+			pthread_mutex_lock(&(g_philo[i]->eat_mutex));
+			if (diff_time > g_params.time_to_die)
 			{
 				print_action(i, PRINT_DIED);
 				return (ptr);
 			}
+			pthread_mutex_unlock(&(g_philo[i]->eat_mutex));
 		}
-		if (g_death ||
-			(g_params.must_eat &&
-				g_params.full_eat_count == g_params.num_of_philo))
+		if (g_params.must_eat &&
+				g_params.full_eat_count == g_params.num_of_philo)
 			return (ptr);
 		usleep(500);
 	}

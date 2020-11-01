@@ -6,7 +6,7 @@
 /*   By: pdemocri <sashe@bk.ru>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 17:09:07 by pdemocri          #+#    #+#             */
-/*   Updated: 2020/10/31 17:09:08 by pdemocri         ###   ########.fr       */
+/*   Updated: 2020/11/02 00:01:23 by pdemocri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,16 @@ void		init_time(t_philo **philo, int n)
 	g_params.start = time;
 }
 
-long		diff_time(t_timeval last_eat)
+void		free_all(void)
 {
-	t_timeval	current_time;
-	t_timeval	sub;
+	int		i;
 
-	gettimeofday(&current_time, NULL);
-	timersub(&current_time, &last_eat, &sub);
-	return (sub.tv_sec * 1000 + sub.tv_usec / 1000);
+	i = -1;
+	while (++i < g_params.num_of_philo)
+	{
+		free(g_thread[i]);
+		free(g_philo[i]);
+	}
+	free(g_thread);
+	free(g_philo);
 }
