@@ -6,7 +6,7 @@
 /*   By: pdemocri <sashe@bk.ru>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 17:08:13 by pdemocri          #+#    #+#             */
-/*   Updated: 2020/11/01 23:35:12 by pdemocri         ###   ########.fr       */
+/*   Updated: 2020/11/12 00:31:55 by pdemocri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ t_param	init_params(char **argv)
 	params.time_to_sleep = ft_atoi(argv[4]) * 1000;
 	params.must_eat = argv[5] ? ft_atoi(argv[5]) : 0;
 	pthread_mutex_init(&(params.print_mutex), NULL);
+	pthread_mutex_init(&(params.start_mutex), NULL);
 	return (params);
 }
 
@@ -62,6 +63,7 @@ void	init_time(t_philo **philo, int n)
 	while (n--)
 		philo[n]->last_eat = time;
 	g_params.start = time;
+	pthread_mutex_unlock(&g_params.eat_mutex);
 }
 
 int		free_all(void)
@@ -72,7 +74,7 @@ int		free_all(void)
 	while (++i < g_params.num_of_philo)
 	{
 		pthread_mutex_destroy(g_mutex[i]);
-		pthread_mutex_destroy(&(g_philo[i]->eat_mutex));
+		pthread_mutex_destroy(&g_params.eat_mutex);
 		free(g_mutex[i]);
 		free(g_thread[i]);
 		free(g_philo[i]);

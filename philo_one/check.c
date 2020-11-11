@@ -6,13 +6,13 @@
 /*   By: pdemocri <sashe@bk.ru>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 17:08:00 by pdemocri          #+#    #+#             */
-/*   Updated: 2020/11/02 00:34:14 by pdemocri         ###   ########.fr       */
+/*   Updated: 2020/11/12 00:56:35 by pdemocri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
-int		check_input(int argc, char **argv)
+int			check_input(int argc, char **argv)
 {
 	int			i;
 	int			j;
@@ -39,12 +39,29 @@ int		check_input(int argc, char **argv)
 	return (0);
 }
 
-void	*check_death(void *ptr)
+static void	*died(int i)
+{
+	pthread_mutex_lock(&(g_params.eat_mutex));
+	g_params.death_status = 1;
+	print_action(i, PRINT_DIED);
+	return (NULL);
+}
+
+static void	*full(void)
+{
+	pthread_mutex_lock(&(g_params.eat_mutex));
+	pthread_mutex_lock(&(g_params.print_mutex));
+	write(1, PRINT_FULL, ft_strlen(PRINT_FULL));
+	return (NULL);
+}
+
+void		*check_death(void *ptr)
 {
 	int			i;
 	t_timeval	cuerrent_time;
 	long		diff_time;
 
+	init_time(g_philo, g_params.num_of_philo);
 	while (1)
 	{
 		i = -1;
@@ -52,18 +69,13 @@ void	*check_death(void *ptr)
 		while (++i < g_params.num_of_philo)
 		{
 			diff_time = get_time(g_philo[i]->last_eat);
-			pthread_mutex_lock(&(g_philo[i]->eat_mutex));
 			if (diff_time > g_params.time_to_die)
-			{
-				print_action(i, PRINT_DIED);
-				return (ptr);
-			}
-			pthread_mutex_unlock(&(g_philo[i]->eat_mutex));
+				return (died(i));
 		}
 		if (g_params.must_eat &&
 				g_params.full_eat_count == g_params.num_of_philo)
-			return (ptr);
-		usleep(500);
+			return (full());
+		usleep(100);
 	}
 	return (ptr);
 }

@@ -6,7 +6,7 @@
 /*   By: pdemocri <sashe@bk.ru>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 17:08:11 by pdemocri          #+#    #+#             */
-/*   Updated: 2020/11/02 00:53:02 by pdemocri         ###   ########.fr       */
+/*   Updated: 2020/11/12 00:56:10 by pdemocri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 # define PRINT_SLEEP " is sleeping\n"
 # define PRINT_THINK " is thinking\n"
 # define PRINT_DIED " died\n"
+# define PRINT_FULL "All philosophers are full\n"
 
 typedef pthread_mutex_t	t_mutex;
 typedef struct timeval	t_timeval;
@@ -45,7 +46,12 @@ typedef struct	s_param
 	int			full_eat_count;
 	t_timeval	start;
 	char		print_buf[100];
+	int			death_status;
 	t_mutex		print_mutex;
+	t_mutex		start_mutex;
+	t_mutex		eat_mutex;
+	pthread_t	check_death_thread;
+	int			queue;
 }				t_param;
 
 typedef struct	s_philo
@@ -53,9 +59,7 @@ typedef struct	s_philo
 	t_timeval	last_eat;
 	t_mutex		*fork1;
 	t_mutex		*fork2;
-	t_mutex		eat_mutex;
 	int			eat_count;
-	int			death_status;
 	int			num;
 }				t_philo;
 
