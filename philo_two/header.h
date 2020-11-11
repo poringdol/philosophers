@@ -6,7 +6,7 @@
 /*   By: pdemocri <sashe@bk.ru>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 17:09:05 by pdemocri          #+#    #+#             */
-/*   Updated: 2020/11/12 01:53:01 by pdemocri         ###   ########.fr       */
+/*   Updated: 2020/11/12 02:30:30 by pdemocri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ typedef struct	s_philo
 	t_timeval	last_eat;
 	int			eat_count;
 	int			num;
+	int			take_2_forks;
 }				t_philo;
 
 int				check_input(int argc, char **argv);
