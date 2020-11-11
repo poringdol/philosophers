@@ -6,7 +6,7 @@
 /*   By: pdemocri <sashe@bk.ru>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 17:09:00 by pdemocri          #+#    #+#             */
-/*   Updated: 2020/11/02 00:36:49 by pdemocri         ###   ########.fr       */
+/*   Updated: 2020/11/12 02:08:47 by pdemocri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	*check_death(void *ptr)
 	int			i;
 	t_timeval	cuerrent_time;
 
+	init_time(g_philo, g_params.num_of_philo);
 	while (1)
 	{
 		i = -1;

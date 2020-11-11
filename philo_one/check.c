@@ -6,7 +6,7 @@
 /*   By: pdemocri <sashe@bk.ru>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 17:08:00 by pdemocri          #+#    #+#             */
-/*   Updated: 2020/11/12 00:56:35 by pdemocri         ###   ########.fr       */
+/*   Updated: 2020/11/12 01:10:07 by pdemocri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void		*check_death(void *ptr)
 {
 	int			i;
 	t_timeval	cuerrent_time;
-	long		diff_time;
+	long		time;
 
 	init_time(g_philo, g_params.num_of_philo);
 	while (1)
@@ -68,8 +68,8 @@ void		*check_death(void *ptr)
 		gettimeofday(&cuerrent_time, NULL);
 		while (++i < g_params.num_of_philo)
 		{
-			diff_time = get_time(g_philo[i]->last_eat);
-			if (diff_time > g_params.time_to_die)
+			time = diff_time(g_philo[i]->last_eat);
+			if (time > g_params.time_to_die)
 				return (died(i));
 		}
 		if (g_params.must_eat &&

@@ -6,7 +6,7 @@
 /*   By: pdemocri <sashe@bk.ru>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 17:09:07 by pdemocri          #+#    #+#             */
-/*   Updated: 2020/11/02 00:01:23 by pdemocri         ###   ########.fr       */
+/*   Updated: 2020/11/12 02:18:46 by pdemocri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,12 @@ int			init_all(int n)
 			return (print_error(INIT_ERROR));
 	}
 	i = -1;
-	sem_unlink(SEMAPHOR);
-	if ((g_forks = sem_open(SEMAPHOR, O_CREAT, 0666, g_params.num_of_philo))
-				== SEM_FAILED)
-		return (print_error(INIT_ERROR));
 	while (++i < n)
 	{
 		memset(g_philo[i], 0, sizeof(t_philo));
 		g_philo[i]->num = i;
 	}
+	init_semaphors();
 	return (0);
 }
 
@@ -62,6 +59,19 @@ void		init_time(t_philo **philo, int n)
 	while (n--)
 		philo[n]->last_eat = time;
 	g_params.start = time;
+	sem_post(g_params.sem_start);
+}
+
+int			init_semaphors(void)
+{
+	sem_unlink(SEM_FORK);
+	sem_unlink(SEM_START);
+	if ((g_forks = sem_open(SEM_FORK, O_CREAT, 0666, g_params.num_of_philo)) ==
+					SEM_FAILED ||
+		((g_params.sem_start = sem_open(SEM_START, O_CREAT, 0666, 0)) ==
+					SEM_FAILED))
+		return (print_error(INIT_ERROR));
+	return (0);
 }
 
 void		free_all(void)
@@ -76,4 +86,6 @@ void		free_all(void)
 	}
 	free(g_thread);
 	free(g_philo);
+	sem_unlink(SEM_FORK);
+	sem_unlink(SEM_START);
 }

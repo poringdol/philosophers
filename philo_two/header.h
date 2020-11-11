@@ -6,7 +6,7 @@
 /*   By: pdemocri <sashe@bk.ru>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 17:09:05 by pdemocri          #+#    #+#             */
-/*   Updated: 2020/11/02 00:04:35 by pdemocri         ###   ########.fr       */
+/*   Updated: 2020/11/12 01:53:01 by pdemocri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@
 # define PRINT_THINK " is thinking\n"
 # define PRINT_DIED " died\n"
 
-# define SEMAPHOR "/sem_name"
+# define SEM_FORK "/sem_fork"
+# define SEM_START "/sem_start"
 
 typedef struct timeval	t_timeval;
 
@@ -47,6 +48,9 @@ typedef struct	s_param
 	int			must_eat;
 	int			full_eat_count;
 	t_timeval	start;
+	sem_t		*sem_start;
+	pthread_t	check_death_thread;
+	int			queue;
 }				t_param;
 
 typedef struct	s_philo
@@ -73,6 +77,7 @@ int				print_action(int i, char *action);
 t_param			init_params(char **argv);
 int				init_all(int n);
 void			init_time(t_philo **philo, int n);
+int				init_semaphors(void);
 void			free_all(void);
 
 int				philosophers(t_param params);

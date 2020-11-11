@@ -6,7 +6,7 @@
 /*   By: pdemocri <sashe@bk.ru>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 17:08:25 by pdemocri          #+#    #+#             */
-/*   Updated: 2020/11/12 00:32:07 by pdemocri         ###   ########.fr       */
+/*   Updated: 2020/11/12 01:09:06 by pdemocri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int		print_action(int i, char *action)
 
 	pthread_mutex_lock(&(g_params.print_mutex));
 	memset(g_params.print_buf, 0, 100);
-	ft_itoa(g_params.print_buf, get_time(g_params.start));
+	ft_itoa(g_params.print_buf, diff_time(g_params.start));
 	g_params.print_buf[ft_strlen(g_params.print_buf)] = ' ';
 	ft_itoa(num, i + 1);
 	ft_strcat(g_params.print_buf, num);

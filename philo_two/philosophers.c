@@ -6,7 +6,7 @@
 /*   By: pdemocri <sashe@bk.ru>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 17:09:13 by pdemocri          #+#    #+#             */
-/*   Updated: 2020/11/02 00:53:32 by pdemocri         ###   ########.fr       */
+/*   Updated: 2020/11/12 01:56:26 by pdemocri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,20 @@ void	*philo_action(void *n)
 	pthread_detach(*(g_thread[i]));
 	while (1)
 	{
+		if (i == g_params.queue)
+			break ;
+		usleep(500);
+	}
+	if (i == 0)
+		pthread_create(&g_params.check_death_thread, NULL, check_death, NULL);
+	g_params.queue++;
+	sem_wait(g_params.sem_start);
+	sem_post(g_params.sem_start);
+	while (1)
+	{
 		eating(i);
 		print_action(i, PRINT_SLEEP);
-		usleep(g_params.time_to_sleep);
+		usleep(g_params.time_to_sleep + 500);
 		print_action(i, PRINT_THINK);
 	}
 	return (NULL);
@@ -59,17 +70,13 @@ void	*philo_action(void *n)
 int		philosophers(t_param params)
 {
 	int			i;
-	pthread_t	check_d;
 
 	i = 0;
-	init_time(g_philo, g_params.num_of_philo);
-	pthread_create(&check_d, NULL, check_death, NULL);
 	while (i < params.num_of_philo)
 	{
 		pthread_create(g_thread[i], NULL, philo_action, &(g_philo[i]->num));
 		i++;
-		usleep(500);
 	}
-	pthread_join(check_d, NULL);
+	pthread_join(g_params.check_death_thread, NULL);
 	return (0);
 }

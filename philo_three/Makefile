@@ -27,7 +27,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	@$(CC) $(OBJ) -o $(NAME) $(FLAGS)
-	@echo "$(GREEN)  Executable $(PURPLE)philo_one $(GREEN)created  $(B&W)"
+	@echo "$(GREEN)  Executable $(PURPLE)philo_three $(GREEN)created  $(B&W)"
 
 -include $(DEP)
 

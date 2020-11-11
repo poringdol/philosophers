@@ -6,7 +6,7 @@
 /*   By: pdemocri <sashe@bk.ru>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 17:08:11 by pdemocri          #+#    #+#             */
-/*   Updated: 2020/11/12 00:56:10 by pdemocri         ###   ########.fr       */
+/*   Updated: 2020/11/12 01:39:28 by pdemocri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ typedef struct	s_param
 	char		print_buf[100];
 	int			death_status;
 	t_mutex		print_mutex;
-	t_mutex		start_mutex;
 	t_mutex		eat_mutex;
 	pthread_t	check_death_thread;
 	int			queue;
@@ -82,7 +81,7 @@ int				free_all(void);
 
 int				philosophers(t_param params);
 void			eating(int i);
-long			get_time(t_timeval last_eat);
+long			diff_time(t_timeval last_eat);
 
 t_param			g_params;
 pthread_t		**g_thread;

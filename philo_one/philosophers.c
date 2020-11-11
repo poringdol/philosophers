@@ -6,13 +6,13 @@
 /*   By: pdemocri <sashe@bk.ru>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 17:08:23 by pdemocri          #+#    #+#             */
-/*   Updated: 2020/11/12 01:03:24 by pdemocri         ###   ########.fr       */
+/*   Updated: 2020/11/12 01:40:18 by pdemocri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
-long	get_time(t_timeval last_eat)
+long	diff_time(t_timeval last_eat)
 {
 	t_timeval	current_time;
 	t_timeval	sub;
@@ -52,17 +52,13 @@ void	*philo_action(void *n)
 	while (1)
 	{
 		if (i == g_params.queue)
-		{
-			if (i == 0)
-				pthread_create(&g_params.check_death_thread,
-								NULL, check_death, NULL);
-			pthread_mutex_unlock(&g_params.start_mutex);
-			pthread_mutex_lock(&g_params.start_mutex);
-			g_params.queue = ((i + 2) < g_params.num_of_philo) ?
-							(g_params.queue + 2) : 1;
 			break ;
-		}
+		usleep(500);
 	}
+	if (i == 0)
+		pthread_create(&g_params.check_death_thread, NULL, check_death, NULL);
+	g_params.queue = ((i + 2) < g_params.num_of_philo) ?
+					(g_params.queue + 2) : 1;
 	while (1)
 	{
 		eating(i);
@@ -78,7 +74,6 @@ int		philosophers(t_param params)
 	int			i;
 
 	i = 0;
-	pthread_mutex_lock(&g_params.start_mutex);
 	pthread_mutex_lock(&g_params.eat_mutex);
 	while (i < params.num_of_philo)
 	{
