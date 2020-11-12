@@ -6,7 +6,7 @@
 /*   By: pdemocri <sashe@bk.ru>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 17:09:00 by pdemocri          #+#    #+#             */
-/*   Updated: 2020/11/12 02:08:47 by pdemocri         ###   ########.fr       */
+/*   Updated: 2020/11/12 02:48:09 by pdemocri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,12 @@ void	*check_death(void *ptr)
 			if (diff_time(g_philo[i]->last_eat) > g_params.time_to_die)
 			{
 				print_action(i, PRINT_DIED);
-				return (ptr);
+				return (NULL);
 			}
 		}
 		if (g_params.must_eat &&
 				g_params.full_eat_count == g_params.num_of_philo)
-			return (ptr);
+			return (NULL);
 		usleep(500);
 	}
 	return (ptr);

@@ -6,7 +6,7 @@
 /*   By: pdemocri <sashe@bk.ru>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 17:09:05 by pdemocri          #+#    #+#             */
-/*   Updated: 2020/11/12 02:30:30 by pdemocri         ###   ########.fr       */
+/*   Updated: 2020/11/12 02:44:24 by pdemocri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 # define PRINT_SLEEP " is sleeping\n"
 # define PRINT_THINK " is thinking\n"
 # define PRINT_DIED " died\n"
+# define PRINT_FULL "All philosophers are full\n"
 
 # define SEM_FORK "/sem_fork"
 # define SEM_START "/sem_start"

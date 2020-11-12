@@ -6,7 +6,7 @@
 /*   By: pdemocri <sashe@bk.ru>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 17:08:00 by pdemocri          #+#    #+#             */
-/*   Updated: 2020/11/12 01:10:07 by pdemocri         ###   ########.fr       */
+/*   Updated: 2020/11/12 03:08:10 by pdemocri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,6 @@ static void	*died(int i)
 	return (NULL);
 }
 
-static void	*full(void)
-{
-	pthread_mutex_lock(&(g_params.eat_mutex));
-	pthread_mutex_lock(&(g_params.print_mutex));
-	write(1, PRINT_FULL, ft_strlen(PRINT_FULL));
-	return (NULL);
-}
-
 void		*check_death(void *ptr)
 {
 	int			i;
@@ -74,7 +66,7 @@ void		*check_death(void *ptr)
 		}
 		if (g_params.must_eat &&
 				g_params.full_eat_count == g_params.num_of_philo)
-			return (full());
+			return (NULL);
 		usleep(100);
 	}
 	return (ptr);

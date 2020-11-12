@@ -6,7 +6,7 @@
 /*   By: pdemocri <sashe@bk.ru>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 17:09:11 by pdemocri          #+#    #+#             */
-/*   Updated: 2020/10/31 17:15:45 by pdemocri         ###   ########.fr       */
+/*   Updated: 2020/11/12 03:07:28 by pdemocri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,5 @@ int		main(int argc, char **argv)
 		return (1);
 	philosophers(g_params);
 	free_all();
-	sem_close(g_forks);
 	return (0);
 }

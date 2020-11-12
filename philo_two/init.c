@@ -6,7 +6,7 @@
 /*   By: pdemocri <sashe@bk.ru>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 17:09:07 by pdemocri          #+#    #+#             */
-/*   Updated: 2020/11/12 02:18:46 by pdemocri         ###   ########.fr       */
+/*   Updated: 2020/11/12 03:05:52 by pdemocri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,4 @@ void		free_all(void)
 	}
 	free(g_thread);
 	free(g_philo);
-	sem_unlink(SEM_FORK);
-	sem_unlink(SEM_START);
 }
