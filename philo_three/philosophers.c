@@ -6,7 +6,7 @@
 /*   By: pdemocri <sashe@bk.ru>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 17:08:44 by pdemocri          #+#    #+#             */
-/*   Updated: 2020/11/02 00:53:12 by pdemocri         ###   ########.fr       */
+/*   Updated: 2020/11/16 20:07:43 by pdemocri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,16 +70,17 @@ int		philosophers(t_param params)
 	pid_check = fork();
 	if (pid_check == 0)
 		check_full_eat(g_params.num_of_philo);
-	while (++i < params.num_of_philo)
+	else
 	{
-		pid_action = fork();
-		g_pid[i] = pid_action;
-		if (pid_action == 0)
-			philo_action(&(g_philo[i]->num));
-		else if (pid_action > 0)
-			usleep(500);
-		else
-			break ;
+		while (++i < params.num_of_philo)
+		{
+			pid_action = fork();
+			g_pid[i] = pid_action;
+			if (pid_action == 0)
+				philo_action(&(g_philo[i]->num));
+			else if (pid_action > 0)
+				usleep(500);
+		}
 	}
 	waitpid(-1, NULL, 0);
 	kill_all();
