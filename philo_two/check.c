@@ -6,7 +6,7 @@
 /*   By: pdemocri <sashe@bk.ru>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 17:09:00 by pdemocri          #+#    #+#             */
-/*   Updated: 2020/11/12 02:48:09 by pdemocri         ###   ########.fr       */
+/*   Updated: 2020/11/17 02:47:06 by pdemocri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int		check_input(int argc, char **argv)
 	}
 	return (0);
 }
-
+#include <stdio.h>//
 void	*check_death(void *ptr)
 {
 	int			i;

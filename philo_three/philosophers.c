@@ -6,7 +6,7 @@
 /*   By: pdemocri <sashe@bk.ru>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 17:08:44 by pdemocri          #+#    #+#             */
-/*   Updated: 2020/11/16 20:07:43 by pdemocri         ###   ########.fr       */
+/*   Updated: 2020/11/17 03:02:57 by pdemocri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,11 @@ long	diff_time(t_timeval last_eat)
 
 void	eating(int i)
 {
-	t_timeval	current;
-
 	sem_wait(g_sem_forks);
 	print_action(i, PRINT_TAKE_FORK);
 	sem_wait(g_sem_forks);
 	print_action(i, PRINT_TAKE_FORK);
-	gettimeofday(&current, NULL);
-	g_philo[i]->last_eat = current;
+	gettimeofday(&(g_philo[i]->last_eat), NULL);
 	print_action(i, PRINT_EAT);
 	usleep(g_params.time_to_eat);
 	sem_post(g_sem_forks);

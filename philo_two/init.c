@@ -6,7 +6,7 @@
 /*   By: pdemocri <sashe@bk.ru>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 17:09:07 by pdemocri          #+#    #+#             */
-/*   Updated: 2020/11/12 03:05:52 by pdemocri         ###   ########.fr       */
+/*   Updated: 2020/11/17 02:53:58 by pdemocri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ void		init_time(t_philo **philo, int n)
 	while (n--)
 		philo[n]->last_eat = time;
 	g_params.start = time;
-	sem_post(g_params.sem_start);
 }
 
 int			init_semaphors(void)

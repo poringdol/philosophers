@@ -6,7 +6,7 @@
 /*   By: pdemocri <sashe@bk.ru>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 17:08:11 by pdemocri          #+#    #+#             */
-/*   Updated: 2020/11/12 01:39:28 by pdemocri         ###   ########.fr       */
+/*   Updated: 2020/11/17 06:27:43 by pdemocri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,10 @@ typedef struct	s_param
 	long		time_to_sleep;
 	int			must_eat;
 	int			full_eat_count;
+	int			time_inited;
 	t_timeval	start;
 	char		print_buf[100];
-	int			death_status;
 	t_mutex		print_mutex;
-	t_mutex		eat_mutex;
 	pthread_t	check_death_thread;
 	int			queue;
 }				t_param;
@@ -58,8 +57,9 @@ typedef struct	s_philo
 	t_timeval	last_eat;
 	t_mutex		*fork1;
 	t_mutex		*fork2;
-	int			eat_count;
+	t_mutex		eat_mutex;
 	int			num;
+	int			eat_count;
 }				t_philo;
 
 int				check_input(int argc, char **argv);

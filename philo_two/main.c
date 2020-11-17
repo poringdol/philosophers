@@ -6,12 +6,11 @@
 /*   By: pdemocri <sashe@bk.ru>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 17:09:11 by pdemocri          #+#    #+#             */
-/*   Updated: 2020/11/12 03:07:28 by pdemocri         ###   ########.fr       */
+/*   Updated: 2020/11/17 02:27:44 by pdemocri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
-#include <stdio.h>
 
 int		main(int argc, char **argv)
 {
