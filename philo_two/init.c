@@ -6,7 +6,7 @@
 /*   By: pdemocri <sashe@bk.ru>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 17:09:07 by pdemocri          #+#    #+#             */
-/*   Updated: 2020/11/17 02:53:58 by pdemocri         ###   ########.fr       */
+/*   Updated: 2020/11/17 07:26:17 by pdemocri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,21 +53,21 @@ int			init_all(int n)
 
 void		init_time(t_philo **philo, int n)
 {
-	t_timeval	time;
-
-	gettimeofday(&time, NULL);
+	gettimeofday(&g_params.start, NULL);
 	while (n--)
-		philo[n]->last_eat = time;
-	g_params.start = time;
+		philo[n]->last_eat = g_params.start;
 }
 
 int			init_semaphors(void)
 {
 	sem_unlink(SEM_FORK);
 	sem_unlink(SEM_START);
+	sem_unlink(SEM_PRINT);
 	if ((g_forks = sem_open(SEM_FORK, O_CREAT, 0666, g_params.num_of_philo)) ==
 					SEM_FAILED ||
 		((g_params.sem_start = sem_open(SEM_START, O_CREAT, 0666, 0)) ==
+					SEM_FAILED) ||
+		((g_params.sem_print = sem_open(SEM_PRINT, O_CREAT, 0666, 1)) ==
 					SEM_FAILED))
 		return (print_error(INIT_ERROR));
 	return (0);

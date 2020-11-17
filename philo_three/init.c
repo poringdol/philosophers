@@ -6,7 +6,7 @@
 /*   By: pdemocri <sashe@bk.ru>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 17:08:34 by pdemocri          #+#    #+#             */
-/*   Updated: 2020/11/02 00:53:46 by pdemocri         ###   ########.fr       */
+/*   Updated: 2020/11/17 08:37:37 by pdemocri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,15 +43,14 @@ int			init_all(int n)
 		memset(g_philo[i], 0, sizeof(t_philo));
 		g_philo[i]->num = i;
 	}
-	i = -1;
+	sem_unlink(SEM_START);
 	sem_unlink(SEM_FORK);
-	sem_unlink(SEM_DEATH);
+	sem_unlink(SEM_PRINT);
 	sem_unlink(SEM_FULL_EAT);
-	if (((g_sem_forks = sem_open(SEM_FORK, O_CREAT, 0666, n))
-					== SEM_FAILED) ||
-		((g_sem_death = sem_open(SEM_DEATH, O_CREAT, 0666, 1)) == SEM_FAILED) ||
-		((g_sem_full_eat = sem_open(SEM_FULL_EAT, O_CREAT, 0666, 0))
-						== SEM_FAILED))
+	if (((g_sem_start = sem_open(SEM_START, O_CREAT, 0666, 1)) == SEM_FAILED) ||
+		((g_sem_forks = sem_open(SEM_FORK, O_CREAT, 0666, n)) == SEM_FAILED) ||
+		((g_sem_print = sem_open(SEM_PRINT, O_CREAT, 0666, 1)) == SEM_FAILED) ||
+		((g_sem_full_eat = sem_open(SEM_FULL_EAT, O_CREAT, 0666, 0)) == SEM_FAILED))
 		return (print_error(INIT_ERROR));
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: pdemocri <sashe@bk.ru>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 17:09:05 by pdemocri          #+#    #+#             */
-/*   Updated: 2020/11/12 02:44:24 by pdemocri         ###   ########.fr       */
+/*   Updated: 2020/11/17 07:07:21 by pdemocri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@
 
 # define SEM_FORK "/sem_fork"
 # define SEM_START "/sem_start"
+# define SEM_PRINT "/sem_print"
 
 typedef struct timeval	t_timeval;
 
@@ -50,8 +51,8 @@ typedef struct	s_param
 	int			full_eat_count;
 	t_timeval	start;
 	sem_t		*sem_start;
+	sem_t		*sem_print;
 	pthread_t	check_death_thread;
-	int			queue;
 }				t_param;
 
 typedef struct	s_philo

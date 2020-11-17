@@ -6,7 +6,7 @@
 /*   By: pdemocri <sashe@bk.ru>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 17:09:13 by pdemocri          #+#    #+#             */
-/*   Updated: 2020/11/17 03:02:22 by pdemocri         ###   ########.fr       */
+/*   Updated: 2020/11/17 07:29:45 by pdemocri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,12 @@ void	eating(int i)
 	sem_wait(g_forks);
 	print_action(i, PRINT_TAKE_FORK);
 	sem_wait(g_forks);
-	print_action(i, PRINT_TAKE_FORK);
 	g_philo[i]->take_2_forks++;
+	print_action(i, PRINT_TAKE_FORK);
 	gettimeofday(&(g_philo[i]->last_eat), NULL);
 	print_action(i, PRINT_EAT);
 	usleep(g_params.time_to_eat);
+	g_philo[i]->take_2_forks = 0;
 	sem_post(g_forks);
 	sem_post(g_forks);
 	g_philo[i]->eat_count++;
@@ -55,11 +56,9 @@ void	*philo_action(void *n)
 	if (i == 0)
 	{
 		pthread_create(&g_params.check_death_thread, NULL, check_death, NULL);
+		sem_wait(g_params.sem_start);
 		sem_post(g_params.sem_start);
 	}
-	sem_wait(g_params.sem_start);
-	sem_post(g_params.sem_start);
-	g_params.queue++;
 	while (1)
 	{
 		eating(i);
@@ -81,7 +80,6 @@ int		philosophers(t_param params)
 		i++;
 	}
 	sem_wait(g_params.sem_start);
-	sem_post(g_params.sem_start);
 	pthread_join(g_params.check_death_thread, NULL);
 	return (0);
 }

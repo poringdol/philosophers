@@ -6,7 +6,7 @@
 /*   By: pdemocri <sashe@bk.ru>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 17:08:48 by pdemocri          #+#    #+#             */
-/*   Updated: 2020/11/16 19:25:07 by pdemocri         ###   ########.fr       */
+/*   Updated: 2020/11/17 07:49:24 by pdemocri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ int		print_action(int i, char *action)
 	ft_itoa(num, i + 1);
 	ft_strcat(buf, num);
 	ft_strcat(buf, action);
+	sem_wait(g_sem_print);
 	write(1, buf, ft_strlen(buf));
+	sem_post(g_sem_print);
 	return (0);
 }

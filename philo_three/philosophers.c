@@ -6,7 +6,7 @@
 /*   By: pdemocri <sashe@bk.ru>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 17:08:44 by pdemocri          #+#    #+#             */
-/*   Updated: 2020/11/17 03:02:57 by pdemocri         ###   ########.fr       */
+/*   Updated: 2020/11/17 08:37:27 by pdemocri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,13 @@ void	eating(int i)
 	sem_wait(g_sem_forks);
 	print_action(i, PRINT_TAKE_FORK);
 	sem_wait(g_sem_forks);
+	g_philo[i]->take_2_forks++;
+	sem_post(g_sem_start);
 	print_action(i, PRINT_TAKE_FORK);
 	gettimeofday(&(g_philo[i]->last_eat), NULL);
 	print_action(i, PRINT_EAT);
 	usleep(g_params.time_to_eat);
+	g_philo[i]->take_2_forks = 0;
 	sem_post(g_sem_forks);
 	sem_post(g_sem_forks);
 	g_philo[i]->eat_count++;
@@ -44,6 +47,8 @@ int		philo_action(void *n)
 	pthread_t	check_d;
 
 	pthread_create(&check_d, NULL, check_death, n);
+	sem_wait(g_sem_start);
+	sem_post(g_sem_start);
 	while (!(g_philo[i]->death_status))
 	{
 		eating(i);

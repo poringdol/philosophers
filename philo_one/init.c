@@ -6,7 +6,7 @@
 /*   By: pdemocri <sashe@bk.ru>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 17:08:13 by pdemocri          #+#    #+#             */
-/*   Updated: 2020/11/17 06:28:57 by pdemocri         ###   ########.fr       */
+/*   Updated: 2020/11/17 07:34:24 by pdemocri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int		init_all(int n)
 	}
 	return (0);
 }
+
 void	init_time(t_philo **philo, int n)
 {
 	gettimeofday(&(g_params.start), NULL);

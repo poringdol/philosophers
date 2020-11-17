@@ -6,7 +6,7 @@
 /*   By: pdemocri <sashe@bk.ru>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 17:08:32 by pdemocri          #+#    #+#             */
-/*   Updated: 2020/10/31 17:16:51 by pdemocri         ###   ########.fr       */
+/*   Updated: 2020/11/17 08:28:20 by pdemocri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,9 @@
 # define PRINT_THINK " is thinking\n"
 # define PRINT_DIED " died\n"
 
+# define SEM_START "/sem_start"
 # define SEM_FORK "/sem_fork"
-# define SEM_DEATH "/sem_death"
+# define SEM_PRINT "/sem_print"
 # define SEM_FULL_EAT "/sem_full_eat"
 
 typedef struct timeval	t_timeval;
@@ -59,6 +60,7 @@ typedef struct	s_philo
 	t_timeval	last_eat;
 	int			eat_count;
 	int			num;
+	int			take_2_forks;
 	int			death_status;
 }				t_philo;
 
@@ -90,8 +92,9 @@ void			eating(int i);
 t_param			g_params;
 pthread_t		**g_thread;
 t_philo			**g_philo;
+sem_t			*g_sem_start;
 sem_t			*g_sem_forks;
-sem_t			*g_sem_death;
+sem_t			*g_sem_print;
 sem_t			*g_sem_full_eat;
 pid_t			*g_pid;
 

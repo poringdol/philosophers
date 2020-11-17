@@ -6,13 +6,13 @@
 /*   By: pdemocri <sashe@bk.ru>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 17:08:29 by pdemocri          #+#    #+#             */
-/*   Updated: 2020/11/17 02:18:22 by pdemocri         ###   ########.fr       */
+/*   Updated: 2020/11/17 08:29:33 by pdemocri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
-int		check_input(int argc, char **argv)
+int			check_input(int argc, char **argv)
 {
 	int			i;
 	int			j;
@@ -39,26 +39,39 @@ int		check_input(int argc, char **argv)
 	return (0);
 }
 
-void	*check_death(void *philo_i)
+static void	*died(int i)
+{
+	char		num[32];
+	char		buf[100];
+
+	memset(buf, 0, 100);
+	ft_itoa(buf, diff_time(g_params.start));
+	buf[ft_strlen(buf)] = ' ';
+	ft_itoa(num, i + 1);
+	ft_strcat(buf, num);
+	ft_strcat(buf, PRINT_DIED);
+	write(1, buf, ft_strlen(buf));
+	return (0);
+}
+
+void		*check_death(void *philo_i)
 {
 	const int	i = *(int *)philo_i;
-	t_timeval	cuerrent_time;
 
-	gettimeofday(&cuerrent_time, NULL);
 	while (!g_philo[i]->death_status)
 	{
-		sem_wait(g_sem_death);
-		if (diff_time(g_philo[i]->last_eat) > g_params.time_to_die)
+		sem_wait(g_sem_print);
+		if (!g_philo[i]->take_2_forks &&
+			diff_time(g_philo[i]->last_eat) > g_params.time_to_die)
 		{
 			g_philo[i]->death_status++;
-			print_action(i, PRINT_DIED);
+			died(i);
 			exit(0);
 		}
-		sem_post(g_sem_death);
+		sem_post(g_sem_print);
 	}
 	if (g_params.must_eat && g_params.full_eat_count == g_params.num_of_philo)
 		sem_post(g_sem_full_eat);
-	usleep(1000);
 	exit(0);
 }
 

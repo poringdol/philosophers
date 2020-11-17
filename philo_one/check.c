@@ -6,7 +6,7 @@
 /*   By: pdemocri <sashe@bk.ru>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 17:08:00 by pdemocri          #+#    #+#             */
-/*   Updated: 2020/11/17 06:31:56 by pdemocri         ###   ########.fr       */
+/*   Updated: 2020/11/17 06:42:34 by pdemocri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ static void	*died(int i)
 {
 	char	num[32];
 
-	pthread_mutex_lock(&(g_params.print_mutex));
 	memset(g_params.print_buf, 0, 100);
 	ft_itoa(g_params.print_buf, diff_time(g_params.start));
 	g_params.print_buf[ft_strlen(g_params.print_buf)] = ' ';
@@ -59,7 +58,7 @@ void		*check_death(void *ptr)
 	int			i;
 
 	while (!g_params.time_inited)
-		usleep(500);
+		;
 	while (1)
 	{
 		i = -1;
@@ -67,7 +66,10 @@ void		*check_death(void *ptr)
 		{
 			pthread_mutex_lock(&(g_philo[i]->eat_mutex));
 			if (diff_time(g_philo[i]->last_eat) > g_params.time_to_die)
+			{
+				pthread_mutex_lock(&(g_params.print_mutex));
 				return (died(i));
+			}
 			pthread_mutex_unlock(&(g_philo[i]->eat_mutex));
 		}
 		if (g_params.must_eat &&
