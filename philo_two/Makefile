@@ -6,7 +6,7 @@ GREEN = \033[0;32m
 PURPLE = \033[0;35m
 
 CC = gcc
-FLAGS = -Wall -Werror -Wextra -pthread -g
+FLAGS = -Wall -Werror -Wextra -pthread
 RM = rm -rf
 
 NAME = philo_two

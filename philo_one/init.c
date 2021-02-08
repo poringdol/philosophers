@@ -48,10 +48,17 @@ int		init_all(int n)
 	while (++i < n)
 	{
 		memset(g_philo[i], 0, sizeof(t_philo));
-		g_philo[i]->fork1 = i ? g_mutex[i - 1] : g_mutex[n - 1];
-		g_philo[i]->fork2 = g_mutex[i];
-		g_philo[i]->num = i;
-		pthread_mutex_init(&(g_philo[i]->eat_mutex), NULL);
+		if (!i) {
+			g_philo[i]->num = i;
+			g_philo[i]->fork1 = g_mutex[0];
+			g_philo[i]->fork2 = g_mutex[n - 1];
+		}
+		else {
+			g_philo[i]->fork1 = g_mutex[i - 1];
+			g_philo[i]->fork2 = g_mutex[i];
+			g_philo[i]->num = i;
+			pthread_mutex_init(&(g_philo[i]->eat_mutex), NULL);
+		}
 	}
 	return (0);
 }
